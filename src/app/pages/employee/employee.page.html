@@ -1,0 +1,22 @@
+<section class="employees-page">
+  <header class="page-header">
+    <h1>All Employees</h1>
+  </header>
+
+  @if (loading()) {
+    <div class="loading">Loading employees…</div>
+  } @else {
+    <nav class="employees-list" aria-label="Employees list">
+      @for (employee of employees(); track employee.id) {
+        <a
+          class="employee-tab"
+          [routerLink]="['/employees', employee.id]"
+        >
+          <span class="employee-id">{{ employee.id }}</span>
+          <span class="separator">|</span>
+          <span class="employee-name">{{ employee.full_name }}</span>
+        </a>
+      }
+    </nav>
+  }
+</section>

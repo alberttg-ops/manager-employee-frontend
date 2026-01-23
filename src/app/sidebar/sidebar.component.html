@@ -1,0 +1,36 @@
+
+<aside class="sidebar" aria-label="Primary navigation">
+  @if (authState.user(); as user) {
+    <div class="profile">
+      <a
+  class="name"
+  [routerLink]="['/employees', user.name]"
+>
+  {{ user.name }}
+</a>
+
+      <hr />
+      <span class="role">{{ user.role }}</span>
+    </div>
+
+    @if (authState.isManager()) {
+      <nav class="nav">
+        <a routerLink="/employees" class="link">View Employees</a>
+        <a routerLink="/add-employee/" class="link">Add Employee</a>
+      </nav>
+    }
+    <!-- <p>isManager: {{ authState.isManager() }}</p> -->
+
+
+      <div class="logout-wrapper">
+      <button
+        type="button"
+        class="logout"
+        (click)="authState.logout()"
+        aria-label="Logout"
+      >
+        Logout
+      </button>
+    </div>
+  }
+</aside>

@@ -1,0 +1,8 @@
+.content {
+  margin-left: clamp(220px, 18vw, 300px);
+  padding: 1.5rem;
+  min-height: 100vh;
+
+  z-index: 1;
+  position: relative;
+}

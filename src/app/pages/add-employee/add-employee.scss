@@ -1,0 +1,135 @@
+.employee-form {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  background: #f9fafb;
+}
+
+/* Section cards */
+.card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 1.75rem 2rem;
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.04),
+    0 8px 24px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  position: relative;
+}
+
+/* Section headers */
+h3 {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #111827;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+/* Helper text */
+small {
+  margin-top: -0.25rem;
+  color: #6b7280;
+  font-size: 0.8rem;
+}
+
+/* Inputs */
+input,
+select {
+  width: 100%;
+  height: 44px;
+  padding: 0 0.9rem;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  font-size: 0.9rem;
+  background: #ffffff;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input::placeholder {
+  color: #9ca3af;
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.18);
+}
+
+/* Date + select alignment */
+input[type='date'],
+select {
+  padding-right: 0.75rem;
+}
+
+/* Grid layouts */
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+/* Responsive fallback */
+@media (max-width: 900px) {
+  .grid-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .grid-2,
+  .grid-3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Skills input */
+.card > input {
+  max-width: 420px;
+}
+
+/* Actions */
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 0.5rem;
+}
+
+/* Primary button */
+button {
+  height: 46px;
+  padding: 0 1.75rem;
+  border-radius: 12px;
+  border: none;
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(37, 99, 235, 0.4);
+}
+
+button:active {
+  transform: translateY(0);
+  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35);
+}

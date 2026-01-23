@@ -1,0 +1,87 @@
+<form [formGroup]="form" (ngSubmit)="submit()" class="employee-form">
+
+  <section class="card">
+    <h3>Identity</h3>
+
+    <div class="grid-2">
+      <input formControlName="username" placeholder="Login email (Auth0)" />
+    </div>
+
+    <small>This email will be used as the employee ID.</small>
+
+    <div class="grid-3">
+      <input formControlName="first_name" placeholder="First name" />
+      <input formControlName="last_name" placeholder="Last name" />
+      <input formControlName="full_name" placeholder="Full name" />
+    </div>
+
+    <div class="grid-3">
+      <input formControlName="phone" placeholder="Phone" />
+      <input type="date" formControlName="date_of_birth" />
+      <select formControlName="gender">
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+        <option value="other">Other</option>
+      </select>
+    </div>
+  </section>
+
+  <section class="card">
+    <h3>Address</h3>
+
+    <div formGroupName="address" class="grid-2">
+      <input formControlName="street" placeholder="Street" />
+      <input formControlName="city" placeholder="City" />
+      <input formControlName="state" placeholder="State" />
+      <input formControlName="country" placeholder="Country" />
+      <input formControlName="postalCode" placeholder="Postal code" />
+    </div>
+  </section>
+
+  <section class="card">
+    <h3>Employment</h3>
+
+    <div formGroupName="employment" class="grid-3">
+      <input formControlName="role" placeholder="Role" />
+      <input formControlName="department" placeholder="Department" />
+      <input type="date" formControlName="joiningDate" />
+    </div>
+  </section>
+
+  <section class="card">
+    <h3>Salary</h3>
+
+    <div formGroupName="salary" class="grid-2">
+      <input type="number" formControlName="base" placeholder="Base salary" />
+      <input formControlName="currency" placeholder="Currency" />
+    </div>
+  </section>
+
+  <section class="card">
+    <h3>Emergency Contact</h3>
+
+    <div formGroupName="emergency_contact" class="grid-2">
+      <input formControlName="name" placeholder="Name" />
+      <input formControlName="phone" placeholder="Phone" />
+    </div>
+  </section>
+
+  <section class="card">
+    <h3>Skills</h3>
+
+    <input
+      #skill
+      placeholder="Add skill and press Enter"
+      (keydown.enter)="
+        form.controls.skills.setValue([...form.value.skills!, skill.value]);
+        skill.value='';
+        $event.preventDefault();
+      "
+    />
+  </section>
+
+  <div class="actions">
+    <button type="submit">Create Employee</button>
+  </div>
+
+</form>

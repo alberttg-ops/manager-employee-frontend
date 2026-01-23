@@ -1,0 +1,76 @@
+<section class="page" aria-labelledby="employee-title">
+  @if (loading()) {
+    <p class="loading" role="status">Loading employee details…</p>
+  }
+
+  @if (!loading() && employee()) {
+    <header class="header">
+      <h1 id="employee-title">{{ employee()!.full_name }}</h1>
+      <p class="subtitle">{{ employee()!.employment.role }}</p>
+    </header>
+
+    <div class="grid">
+      <section>
+        <h2>Contact</h2>
+        <p>Email: {{ employee()!.email }}</p>
+        <p>Phone: {{ employee()!.phone }}</p>
+      </section>
+
+      <section>
+        <h2>Personal</h2>
+        <p>Gender: {{ employee()!.gender }}</p>
+        <p>Date of Birth: {{ employee()!.date_of_birth | date }}</p>
+      </section>
+
+      <section>
+        <h2>Address</h2>
+        <p>
+          {{ employee()!.address.street }},
+          {{ employee()!.address.city }},
+          {{ employee()!.address.state }} –
+          {{ employee()!.address.postalCode }},
+          {{ employee()!.address.country }}
+        </p>
+      </section>
+
+      <section>
+        <h2>Employment</h2>
+        <p>Department: {{ employee()!.employment.department }}</p>
+        <p>Status: {{ employee()!.employment.status }}</p>
+        <p>Joined: {{ employee()!.employment.joiningDate | date }}</p>
+      </section>
+
+      <section>
+        <h2>Compensation</h2>
+        <p>
+          Salary:
+          {{ employee()!.salary.base | number }} {{ employee()!.salary.currency }}
+        </p>
+      </section>
+
+      <section>
+        <h2>Emergency Contact</h2>
+        <p>{{ employee()!.emergency_contact.name }}</p>
+        <p>{{ employee()!.emergency_contact.phone }}</p>
+      </section>
+
+      <section>
+        <h2>Skills</h2>
+        <ul>
+          @for (skill of employee()!.skills; track skill) {
+            <li>{{ skill }}</li>
+          }
+        </ul>
+      </section>
+
+      <section>
+        <h2>Performance</h2>
+        <p>Rating: {{ employee()!.performance_rating }}</p>
+      </section>
+    </div>
+  }
+
+  @if (!loading() && !employee()) {
+    <p class="error" role="alert">Employee not found.</p>
+  }
+</section>

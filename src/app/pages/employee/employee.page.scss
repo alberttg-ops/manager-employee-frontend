@@ -1,0 +1,78 @@
+.employees-page {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 1.5rem;
+  background: #f8fafc;
+}
+
+.page-header {
+  margin-bottom: 1rem;
+
+  h1 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #0f172a;
+  }
+}
+
+.loading {
+  padding: 1rem;
+  color: #475569;
+  font-size: 0.95rem;
+}
+
+.employees-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  overflow-y: auto;
+  padding-right: 0.25rem;
+}
+
+.employee-tab {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+
+  text-decoration: none;
+  color: #0f172a;
+  font-size: 0.9rem;
+
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+
+  &:hover {
+    background: #f1f5f9;
+    border-color: #cbd5f5;
+  }
+
+  &:focus-visible {
+    outline: 2px solid #6366f1;
+    outline-offset: 2px;
+  }
+}
+
+.employee-id {
+  width: 45%;             /* percentage of available horizontal space */
+  min-width: 0;
+  font-weight: 500;
+  color: #1e293b;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+.separator {
+  color: #94a3b8;
+}
+
+.employee-name {
+  color: #475569;
+}
