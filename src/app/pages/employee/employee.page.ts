@@ -37,4 +37,27 @@ export class EmployeesListPage {
         },
       });
   }
+    deleteEmployee(employeeId: string) {
+  if (!confirm('Are you sure you want to delete this employee?')) {
+    return;
+  }
+
+  this.http
+    .delete(`http://localhost:5000/api/delete/employee/${employeeId}`)
+    .subscribe({
+      next: () => {
+        alert('Employee deleted');
+        // remove locally so UI updates immediately
+        this.employees.update(list =>
+          list.filter(e => e.id !== employeeId)
+        );
+      },
+      error: err => {
+        console.error('Delete failed', err);
+        alert('Delete failed');
+      }
+    });
 }
+
+}
+

@@ -8,14 +8,29 @@
   } @else {
     <nav class="employees-list" aria-label="Employees list">
       @for (employee of employees(); track employee.id) {
-        <a
-          class="employee-tab"
-          [routerLink]="['/employees', employee.id]"
-        >
-          <span class="employee-id">{{ employee.id }}</span>
-          <span class="separator">|</span>
-          <span class="employee-name">{{ employee.full_name }}</span>
-        </a>
+        <div class="employee-tab">
+          <a
+            class="employee-info"
+            [routerLink]="['/employees', employee.id]"
+          >
+            <span class="employee-id">{{ employee.id }}</span>
+            <span class="employee-name">{{ employee.full_name }}</span>
+          </a>
+
+          <div class="employee-actions">
+            <button
+              class="btn btn-edit"
+              [routerLink]="['/edit-employee', employee.id]">
+              Edit
+            </button>
+
+            <button
+              class="btn btn-delete"
+              (click)="deleteEmployee(employee.id)">
+              Delete
+            </button>
+          </div>
+        </div>
       }
     </nav>
   }

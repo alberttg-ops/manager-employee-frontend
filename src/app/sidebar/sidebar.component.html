@@ -1,16 +1,26 @@
-
 <aside class="sidebar" aria-label="Primary navigation">
   @if (authState.user(); as user) {
     <div class="profile">
-      <a
-  class="name"
-  [routerLink]="['/employees', user.name]"
->
-  {{ user.name }}
-</a>
+      <div class="avatar">
+        {{ user.name.charAt(0).toUpperCase() }}
+      </div>
 
-      <hr />
-      <span class="role">{{ user.role }}</span>
+      <div class="identity">
+        <a
+          class="name"
+          [routerLink]="['/employees', user.name]"
+        >
+          {{ user.name }}
+        </a>
+
+        <!-- Divider directly below name -->
+        <hr class="divider" />
+
+        <!-- Roles block -->
+        <div class="roles">
+          <span class="role primary">{{ user.role }}</span>
+        </div>
+      </div>
     </div>
 
     @if (authState.isManager()) {
@@ -19,10 +29,8 @@
         <a routerLink="/add-employee/" class="link">Add Employee</a>
       </nav>
     }
-    <!-- <p>isManager: {{ authState.isManager() }}</p> -->
 
-
-      <div class="logout-wrapper">
+    <div class="logout-wrapper">
       <button
         type="button"
         class="logout"
