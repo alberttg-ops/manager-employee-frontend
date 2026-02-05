@@ -33,6 +33,7 @@ export class AppShellComponent {
     // added behavior — safe, non-breaking
     effect(() => {
       const user = this.authState.user();
+      console.log(user);
       if (!user) return;
 
       // name === email === employee id
