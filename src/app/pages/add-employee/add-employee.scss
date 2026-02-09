@@ -1,3 +1,10 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+
 .employee-form {
   max-width: 1100px;
   margin: 0 auto;
@@ -69,6 +76,7 @@ select {
   padding-right: 0.75rem;
 }
 
+
 /* Grid layouts */
 .grid-2 {
   display: grid;
@@ -132,4 +140,15 @@ button:hover {
 button:active {
   transform: translateY(0);
   box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35);
+}
+
+.employee-form input.required.ng-invalid,
+.employee-form select.required.ng-invalid {
+  border-color: #dc2626;
+}
+
+.employee-form input.required.ng-invalid:focus,
+.employee-form select.required.ng-invalid:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.18);
 }

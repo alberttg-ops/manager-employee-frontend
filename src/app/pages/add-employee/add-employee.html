@@ -4,20 +4,20 @@
     <h3>Identity</h3>
 
     <div class="grid-2">
-      <input formControlName="username" placeholder="Login email (Auth0)" />
+      <input formControlName="username" placeholder="Login email (Auth0)" class="required"/>
     </div>
 
     <small>This email will be used as the employee ID.</small>
 
     <div class="grid-3">
-      <input formControlName="first_name" placeholder="First name" />
-      <input formControlName="last_name" placeholder="Last name" />
-      <input formControlName="full_name" placeholder="Full name" />
+      <input formControlName="first_name" placeholder="First name" class="required" />
+      <input formControlName="last_name" placeholder="Last name" class="required"/>
+      <input formControlName="full_name" placeholder="Full name" class="required"/>
     </div>
 
     <div class="grid-3">
-      <input formControlName="phone" placeholder="Phone" />
-      <input type="date" formControlName="date_of_birth" />
+      <input formControlName="phone" placeholder="Phone" class="required"/>
+      <input type="date" formControlName="date_of_birth" class="required"/>
       <select formControlName="gender">
         <option value="male">Male</option>
         <option value="female">Female</option>
