@@ -22,13 +22,19 @@
         </div>
       </div>
     </div>
+<nav class="nav">
 
-    @if (authState.isManager()) {
-      <nav class="nav">
-        <a routerLink="/employees" class="link">View Employees</a>
-        <a routerLink="/add-employee/" class="link">Add Employee</a>
-      </nav>
-    }
+  <!-- Visible to everyone -->
+  <a routerLink="/contact-list" class="link">Contacts</a>
+
+  <!-- Manager only -->
+  @if (authState.isManager()) {
+    <a routerLink="/employees" class="link">View Employees</a>
+    <a routerLink="/add-employee/" class="link">Add Employee</a>
+  }
+
+</nav>
+
 
     <div class="logout-wrapper">
       <button

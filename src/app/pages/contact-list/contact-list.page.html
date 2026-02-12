@@ -1,0 +1,28 @@
+<section class="employees-page">
+  <header class="page-header">
+    <h1>Contact</h1>
+  </header>
+
+  @if (loading()) {
+    <div class="loading">Loading employees…</div>
+  } @else {
+    <nav class="employees-list" aria-label="Employees list">
+  @for (employee of employees(); track employee.id) {
+    <a
+      class="employee-tab"
+      [routerLink]="['/chat', employee.id]"
+    >
+      <div class="avatar">
+        {{ employee.full_name.charAt(0).toUpperCase() }}
+      </div>
+
+      <div class="employee-text">
+        <span class="employee-name">{{ employee.full_name }}</span>
+        <span class="employee-email">{{ employee.id }}</span>
+      </div>
+    </a>
+  }
+</nav>
+
+  }
+</section>

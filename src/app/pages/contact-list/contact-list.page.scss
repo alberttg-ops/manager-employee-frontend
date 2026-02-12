@@ -1,0 +1,83 @@
+.employees-page {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 1.5rem;
+  background: #f4f6f9;
+}
+
+.page-header h1 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #0f172a;
+  margin-bottom: 1rem;
+}
+
+.employees-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+/* Contact row */
+.employee-tab {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+
+  padding: 0.75rem 0.9rem;
+  border-radius: 12px;
+
+  text-decoration: none;
+  color: inherit;
+
+  transition: background 0.15s ease;
+}
+
+.employee-tab:hover {
+  background: #eef2ff;
+}
+
+/* Avatar */
+.avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #4f46e5;
+  color: white;
+  font-weight: 600;
+  font-size: 0.95rem;
+
+  flex-shrink: 0;
+}
+
+/* Text container */
+.employee-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.employee-name {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #0f172a;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.employee-email {
+  font-size: 0.8rem;
+  color: #64748b;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

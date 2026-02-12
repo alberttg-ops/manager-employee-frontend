@@ -8,6 +8,7 @@ import {AppShellComponent} from "./shell/app-shell/app-shell.component"
 import {AddEmployeePage} from "./pages/add-employee/add-employee"
 import {EditEmployeeComponent} from "./pages/edit-employee/edit-employee"
 import {ChatPageComponent} from "./components/chat/chat-page.component"
+import {ContactListPage} from "./pages/contact-list/contact-list.page"
 
 export const routes: Routes = [
   {
@@ -43,6 +44,10 @@ export const routes: Routes = [
       {
         path:'chat/:id',
         component:ChatPageComponent 
+      },
+      {
+        path:'contact-list',
+        component:ContactListPage
       }
     ]
   },
