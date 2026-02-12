@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 export interface ChatMessage {
   type: string;
@@ -12,7 +13,14 @@ export interface ChatMessage {
 @Injectable({ providedIn: 'root' })
 export class ChatService {
 
+  private http = inject(HttpClient);   // ✅ Injected properly
   private socket: WebSocket | null = null;
+
+  getHistory(targetEmail: string) {
+    return this.http.get<ChatMessage[]>(
+      `http://localhost:5000/api/chat/history/${targetEmail}`
+    );
+  }
 
   connect(
     targetUserId: string,
@@ -31,8 +39,7 @@ export class ChatService {
     };
 
     this.socket.onmessage = (event) => {
-      console.log("Message received:", event.data);
-      const data = JSON.parse(event.data);
+      const data: ChatMessage = JSON.parse(event.data);
       onMessage(data);
     };
 
@@ -48,13 +55,8 @@ export class ChatService {
 
   sendMessage(content: string) {
 
-    if (!this.socket) {
-      console.error("Socket not initialized");
-      return;
-    }
-
-    if (this.socket.readyState !== WebSocket.OPEN) {
-      console.error("Socket not open");
+    if (!this.socket || this.socket.readyState !== WebSocket.OPEN) {
+      console.error("Socket not ready");
       return;
     }
 
@@ -65,9 +67,7 @@ export class ChatService {
   }
 
   disconnect() {
-    if (this.socket) {
-      this.socket.close();
-      this.socket = null;
-    }
+    this.socket?.close();
+    this.socket = null;
   }
 }

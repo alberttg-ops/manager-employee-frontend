@@ -2,6 +2,8 @@ import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './auth.interceptor';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-root',

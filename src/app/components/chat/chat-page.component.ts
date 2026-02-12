@@ -13,118 +13,73 @@ import { AuthStateService } from '../../services/auth-state.service';
   imports: [CommonModule, FormsModule],
   templateUrl: './chat-page.component.html',
   styleUrls: ['./chat-page.component.scss']
-})
-export class ChatPageComponent implements OnInit, OnDestroy {
+})export class ChatPageComponent implements OnInit, OnDestroy {
 
   private route = inject(ActivatedRoute);
   private chatService = inject(ChatService);
   private authState = inject(AuthStateService);
-  private zone = inject(NgZone);
   private cdr = inject(ChangeDetectorRef);
 
-  targetUserId!: string;
-  currentUserId!: string;
-  currentConversationId!: string;
-
-
   messages: ChatMessage[] = [];
-  newMessage = "";
+  newMessage = '';
+
+  currentUserId!: string;
+  targetUserId!: string;
+  currentConversationId!: string;
 
   async ngOnInit() {
 
-  this.route.paramMap.subscribe(async params => {
+    // Get logged in user email
+    this.currentUserId = this.authState.user()?.id!;
 
-    const user = this.authState.user();
+    // Get target from route
+    this.targetUserId = this.route.snapshot.paramMap.get('id')!;
 
-    if (!user) {
-      console.error("User not loaded yet");
-      return;
-    }
+    // Build deterministic conversation id
+    this.currentConversationId = [
+      this.currentUserId,
+      this.targetUserId
+    ].sort().join('::');
 
-    this.currentUserId = user.id;
-    this.targetUserId = params.get('id')!;
+    // 1️⃣ Load history FIRST
+    this.chatService.getHistory(this.targetUserId)
+      .subscribe((history: ChatMessage[]) => {
 
-    this.messages = [];
-    this.chatService.disconnect();
+        this.messages = history.map(msg => ({
+          type: 'message',
+          conversation_id: this.currentConversationId,
+          sender_id: msg.sender_id,
+          receiver_id: '',
+          content: msg.content,
+          timestamp: msg.timestamp
+        }));
 
-    const token = await this.authState.getAccessToken();
+        this.cdr.detectChanges();
+      });
 
-    // this.chatService.connect(
-    //   this.targetUserId,
-    //   token,
-    //   (msg) => this.messages.push(msg)
-    // );
-    
-//     this.chatService.connect(
-//   this.targetUserId,
-//   token,
-//   (msg) => {
-//     this.zone.run(() => {
-//       this.messages.push(msg);
-//     });
-//   }
-// );
-this.chatService.connect(
-  this.targetUserId,
-  token,
-  (msg) => {
-    if (msg.conversation_id === this.currentConversationId) {
-  this.messages = [...this.messages, msg];
-    this.cdr.detectChanges();
+    // 2️⃣ Then connect websocket
+    const token = await this.authState.getAccessToken(); // use your real method
 
-}
+    this.chatService.connect(
+      this.targetUserId,
+      token,
+      (msg: ChatMessage) => {
 
+        // Only append if correct conversation
+        if (msg.conversation_id === this.currentConversationId) {
+          this.messages = [...this.messages, msg];
+          this.cdr.detectChanges();
+        }
+      }
+    );
   }
-);
 
+  send() {
+    if (!this.newMessage.trim()) return;
 
-  this.currentConversationId = [
-  this.currentUserId,
-  this.targetUserId
-].sort().join('::');
-
-
-  });
-}
-
-
-//   send() {
-
-//   if (!this.newMessage) return;
-
-//   const optimisticMessage = {
-//     type: "message",
-//     conversation_id: "",
-//     sender_id: this.currentUserId,
-//     receiver_id: this.targetUserId,
-//     content: this.newMessage,
-//     timestamp: new Date().toISOString()
-//   };
-
-//   this.messages.push(optimisticMessage);
-
-//   this.chatService.sendMessage(this.newMessage);
-
-//   this.newMessage = "";
-// }
-send() {
-  if (!this.newMessage) return;
-
-  this.chatService.sendMessage(this.newMessage);
-  this.newMessage = "";
-  console.log("send triggered");
-}
-
-// send() {
-//   const message = this.newMessage;
-//   this.newMessage = "";
-
-//   setTimeout(() => {
-//     this.chatService.sendMessage(message);
-//   });
-// }
-
-
+    this.chatService.sendMessage(this.newMessage);
+    this.newMessage = '';
+  }
 
   ngOnDestroy() {
     this.chatService.disconnect();
