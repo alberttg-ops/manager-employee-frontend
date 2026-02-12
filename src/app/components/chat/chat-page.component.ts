@@ -24,6 +24,8 @@ export class ChatPageComponent implements OnInit, OnDestroy {
 
   targetUserId!: string;
   currentUserId!: string;
+  currentConversationId!: string;
+
 
   messages: ChatMessage[] = [];
   newMessage = "";
@@ -66,10 +68,20 @@ this.chatService.connect(
   this.targetUserId,
   token,
   (msg) => {
-    this.messages = [...this.messages, msg];
+    if (msg.conversation_id === this.currentConversationId) {
+  this.messages = [...this.messages, msg];
     this.cdr.detectChanges();
+
+}
+
   }
 );
+
+
+  this.currentConversationId = [
+  this.currentUserId,
+  this.targetUserId
+].sort().join('::');
 
 
   });

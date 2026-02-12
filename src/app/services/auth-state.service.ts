@@ -29,7 +29,7 @@ export class AuthStateService {
       const roles = claims[this.ROLE_NAMESPACE] as Role[] | undefined;
 
       this.user.set({
-        id: claims['sub'] as string,  // 🔥 REQUIRED
+        id: claims['name'] as string,  // 🔥 REQUIRED
         name: (claims['name'] as string) ?? 'User',
         role: roles?.[0] ?? 'Employee',
       });
